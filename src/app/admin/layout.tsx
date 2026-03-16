@@ -18,7 +18,7 @@ export default function AdminLayout({
           <h2 className="text-lg font-semibold">Admin Portal</h2>
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground">
-              Welcome, Thandi
+              Welcome, Samkelwa
             </span>
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-medium text-white">
               SQ

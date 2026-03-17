@@ -52,51 +52,92 @@ export default function ResultsTable({
   }
 
   return (
-    <div className="rounded-lg border">
-      <Table>
-        <TableHeader>
-          <TableRow className="bg-muted/50">
-            <TableHead>Name</TableHead>
-            <TableHead>Cemetery</TableHead>
-            <TableHead>Section</TableHead>
-            <TableHead>Grave No.</TableHead>
-            <TableHead>Date of Burial</TableHead>
-            <TableHead className="w-10"></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {results.map((grave) => (
-            <TableRow key={grave.id} className="group">
-              <TableCell className="font-medium">
-                {grave.firstName} {grave.surname}
-                {grave.maidenName && (
-                  <span className="ml-1 text-muted-foreground">
-                    (née {grave.maidenName})
-                  </span>
-                )}
-              </TableCell>
-              <TableCell>{grave.cemeteryName}</TableCell>
-              <TableCell>{grave.section}</TableCell>
-              <TableCell className="font-mono text-sm">
-                {grave.graveNumber}
-              </TableCell>
-              <TableCell>{formatDate(grave.dateOfBurial)}</TableCell>
-              <TableCell>
-                <Link
-                  href={`/graves/${grave.id}`}
-                  className="inline-flex items-center gap-1 text-sm text-primary opacity-0 transition-opacity group-hover:opacity-100 hover:underline"
-                >
-                  View
-                  <ExternalLink className="h-3 w-3" />
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <div className="border-t px-4 py-3 text-sm text-muted-foreground">
-        {results.length} record{results.length !== 1 ? "s" : ""} found
+    <>
+      {/* Desktop table — hidden on small screens */}
+      <div className="hidden sm:block rounded-lg border">
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/50">
+                <TableHead>Name</TableHead>
+                <TableHead>Cemetery</TableHead>
+                <TableHead>Section</TableHead>
+                <TableHead>Grave No.</TableHead>
+                <TableHead>Date of Burial</TableHead>
+                <TableHead className="w-10"></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {results.map((grave) => (
+                <TableRow key={grave.id} className="group">
+                  <TableCell className="font-medium">
+                    {grave.firstName} {grave.surname}
+                    {grave.maidenName && (
+                      <span className="ml-1 text-muted-foreground">
+                        (née {grave.maidenName})
+                      </span>
+                    )}
+                  </TableCell>
+                  <TableCell>{grave.cemeteryName}</TableCell>
+                  <TableCell>{grave.section}</TableCell>
+                  <TableCell className="font-mono text-sm">
+                    {grave.graveNumber}
+                  </TableCell>
+                  <TableCell>{formatDate(grave.dateOfBurial)}</TableCell>
+                  <TableCell>
+                    <Link
+                      href={`/graves/${grave.id}`}
+                      className="inline-flex items-center gap-1 text-sm text-primary opacity-0 transition-opacity group-hover:opacity-100 hover:underline"
+                    >
+                      View
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+        <div className="border-t px-4 py-3 text-sm text-muted-foreground">
+          {results.length} record{results.length !== 1 ? "s" : ""} found
+        </div>
       </div>
-    </div>
+
+      {/* Mobile cards — shown only on small screens */}
+      <div className="space-y-3 sm:hidden">
+        {results.map((grave) => (
+          <Link
+            key={grave.id}
+            href={`/graves/${grave.id}`}
+            className="block rounded-lg border bg-white p-4 transition-colors active:bg-muted/50"
+          >
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <p className="font-medium">
+                  {grave.firstName} {grave.surname}
+                  {grave.maidenName && (
+                    <span className="ml-1 text-muted-foreground">
+                      (née {grave.maidenName})
+                    </span>
+                  )}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {grave.cemeteryName}
+                </p>
+              </div>
+              <ExternalLink className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+            </div>
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+              <span>Section {grave.section}</span>
+              <span className="font-mono">{grave.graveNumber}</span>
+              <span>Buried {formatDate(grave.dateOfBurial)}</span>
+            </div>
+          </Link>
+        ))}
+        <p className="text-center text-sm text-muted-foreground">
+          {results.length} record{results.length !== 1 ? "s" : ""} found
+        </p>
+      </div>
+    </>
   );
 }

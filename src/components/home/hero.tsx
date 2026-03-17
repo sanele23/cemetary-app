@@ -1,8 +1,21 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Search, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function Hero() {
+  const router = useRouter();
+  const [surname, setSurname] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = surname.trim() ? `?surname=${encodeURIComponent(surname.trim())}` : "";
+    router.push(`/search${params}`);
+  };
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary via-[#1e3a5f] to-[#0f2847] py-24 text-white lg:py-32">
       {/* Background pattern */}
@@ -39,8 +52,7 @@ export default function Hero() {
           <div className="mx-auto max-w-2xl">
             <form
               className="flex flex-col gap-3 sm:flex-row"
-              action="/search"
-              method="get"
+              onSubmit={handleSearch}
             >
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
@@ -48,6 +60,8 @@ export default function Hero() {
                   name="surname"
                   placeholder="Search by surname..."
                   className="h-12 bg-white pl-10 text-foreground"
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
                 />
               </div>
               <Button

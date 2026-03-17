@@ -8,7 +8,7 @@ import SearchFormComponent, {
   type SearchParams,
 } from "@/components/search/search-form";
 import ResultsTable from "@/components/search/results-table";
-import { searchGraves } from "@/services/mock-api";
+import { searchGraves, quickSearchGraves } from "@/services/mock-api";
 import type { Grave } from "@/data/types";
 
 function SearchPageContent() {
@@ -17,12 +17,17 @@ function SearchPageContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
 
+  // "q" comes from the hero quick-search; "surname" from the detailed form
+  const initialQuery = searchParams.get("q") || "";
   const initialSurname = searchParams.get("surname") || "";
   const initialCemeteryId = searchParams.get("cemeteryId") || "all";
 
   // Auto-search if URL params are present
   useEffect(() => {
-    if (initialSurname || initialCemeteryId !== "all") {
+    if (initialQuery) {
+      // Full-text quick search from the hero bar
+      runQuickSearch(initialQuery);
+    } else if (initialSurname || initialCemeteryId !== "all") {
       handleSearch({
         firstName: "",
         surname: initialSurname,
@@ -34,6 +39,17 @@ function SearchPageContent() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const runQuickSearch = async (query: string) => {
+    setIsLoading(true);
+    setHasSearched(true);
+    try {
+      const data = await quickSearchGraves(query);
+      setResults(data);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSearch = async (params: SearchParams) => {
     setIsLoading(true);

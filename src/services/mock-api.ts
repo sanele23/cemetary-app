@@ -78,6 +78,31 @@ export async function searchGraves(params: {
   });
 }
 
+/**
+ * Full-text search used by the hero quick-search bar.
+ * Splits the query into words and checks that EVERY word appears
+ * in at least one of: firstName, surname, or maidenName.
+ * Handles multi-word Afrikaner surnames like "Van De Kerk".
+ */
+export async function quickSearchGraves(query: string): Promise<Grave[]> {
+  await delay(500);
+
+  const trimmed = query.trim();
+  if (!trimmed) return [];
+
+  const words = trimmed.toLowerCase().split(/\s+/);
+
+  return graves.filter((g) => {
+    // Build a combined string of all name fields for this grave
+    const namePool = [g.firstName, g.surname, g.maidenName || ""]
+      .join(" ")
+      .toLowerCase();
+
+    // Every search word must appear somewhere in the name pool
+    return words.every((word) => namePool.includes(word));
+  });
+}
+
 export async function getGraveById(id: string): Promise<Grave | undefined> {
   await delay();
   return graves.find((g) => g.id === id);

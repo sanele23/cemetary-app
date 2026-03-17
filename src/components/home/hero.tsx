@@ -8,11 +8,11 @@ import { Input } from "@/components/ui/input";
 
 export default function Hero() {
   const router = useRouter();
-  const [surname, setSurname] = useState("");
+  const [query, setQuery] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = surname.trim() ? `?surname=${encodeURIComponent(surname.trim())}` : "";
+    const params = query.trim() ? `?q=${encodeURIComponent(query.trim())}` : "";
     router.push(`/search${params}`);
   };
 
@@ -57,11 +57,11 @@ export default function Hero() {
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                 <Input
-                  name="surname"
-                  placeholder="Search by surname..."
+                  name="q"
+                  placeholder="Search by name, e.g. Thabo Molefe or Van De Kerk"
                   className="h-12 bg-white pl-10 text-foreground"
-                  value={surname}
-                  onChange={(e) => setSurname(e.target.value)}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
               </div>
               <Button
@@ -74,7 +74,8 @@ export default function Hero() {
               </Button>
             </form>
             <p className="mt-3 text-sm text-white/60">
-              Enter a surname to search across all registered cemeteries
+              Search by first name, surname, or both across all registered
+              cemeteries
             </p>
           </div>
 

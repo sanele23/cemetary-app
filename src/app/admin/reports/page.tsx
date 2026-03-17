@@ -63,7 +63,7 @@ export default function AdminReportsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">Reports</h1>
           <p className="text-muted-foreground">
@@ -71,11 +71,11 @@ export default function AdminReportsPage() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="gap-2">
+          <Button variant="outline" className="gap-2 flex-1 sm:flex-none">
             <Download className="h-4 w-4" />
             Export CSV
           </Button>
-          <Button variant="outline" className="gap-2">
+          <Button variant="outline" className="gap-2 flex-1 sm:flex-none">
             <FileText className="h-4 w-4" />
             Generate PDF
           </Button>
@@ -170,46 +170,48 @@ export default function AdminReportsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Cemetery</TableHead>
-                <TableHead>City</TableHead>
-                <TableHead>Total Graves</TableHead>
-                <TableHead>Available Plots</TableHead>
-                <TableHead>Utilisation</TableHead>
-                <TableHead>Capacity Bar</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {cemeteries.map((cem) => {
-                const utilisation =
-                  ((cem.totalGraves - cem.availablePlots) / cem.totalGraves) *
-                  100;
-                return (
-                  <TableRow key={cem.id}>
-                    <TableCell className="font-medium">{cem.name}</TableCell>
-                    <TableCell>{cem.city}</TableCell>
-                    <TableCell>{cem.totalGraves.toLocaleString()}</TableCell>
-                    <TableCell className="font-medium text-emerald-600">
-                      {cem.availablePlots.toLocaleString()}
-                    </TableCell>
-                    <TableCell>{utilisation.toFixed(1)}%</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <div className="h-2 w-full max-w-32 overflow-hidden rounded-full bg-secondary">
-                          <div
-                            className="h-full rounded-full bg-primary transition-all"
-                            style={{ width: `${utilisation}%` }}
-                          />
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Cemetery</TableHead>
+                  <TableHead>City</TableHead>
+                  <TableHead>Total Graves</TableHead>
+                  <TableHead>Available Plots</TableHead>
+                  <TableHead>Utilisation</TableHead>
+                  <TableHead>Capacity Bar</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {cemeteries.map((cem) => {
+                  const utilisation =
+                    ((cem.totalGraves - cem.availablePlots) / cem.totalGraves) *
+                    100;
+                  return (
+                    <TableRow key={cem.id}>
+                      <TableCell className="font-medium">{cem.name}</TableCell>
+                      <TableCell>{cem.city}</TableCell>
+                      <TableCell>{cem.totalGraves.toLocaleString()}</TableCell>
+                      <TableCell className="font-medium text-emerald-600">
+                        {cem.availablePlots.toLocaleString()}
+                      </TableCell>
+                      <TableCell>{utilisation.toFixed(1)}%</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div className="h-2 w-full max-w-32 overflow-hidden rounded-full bg-secondary">
+                            <div
+                              className="h-full rounded-full bg-primary transition-all"
+                              style={{ width: `${utilisation}%` }}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>

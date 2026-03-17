@@ -60,14 +60,14 @@ export default function AdminBurialsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">Burial Records</h1>
           <p className="text-muted-foreground">
             Manage and track all burial registrations
           </p>
         </div>
-        <Button className="gap-2">
+        <Button className="gap-2 w-full sm:w-auto">
           <Plus className="h-4 w-4" />
           Register Burial
         </Button>
@@ -75,9 +75,9 @@ export default function AdminBurialsPage() {
 
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <CardTitle>All Burial Records ({filtered.length})</CardTitle>
-            <div className="relative w-64">
+            <div className="relative w-full sm:w-64">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 placeholder="Search records..."
@@ -89,42 +89,46 @@ export default function AdminBurialsPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Deceased</TableHead>
-                <TableHead>Cemetery</TableHead>
-                <TableHead>Section</TableHead>
-                <TableHead>Grave No.</TableHead>
-                <TableHead>Date of Burial</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Registered By</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filtered.map((b) => (
-                <TableRow key={b.id}>
-                  <TableCell className="font-medium">
-                    {b.deceasedName}
-                  </TableCell>
-                  <TableCell>{b.cemeteryName}</TableCell>
-                  <TableCell>{b.section}</TableCell>
-                  <TableCell className="font-mono text-sm">
-                    {b.graveNumber}
-                  </TableCell>
-                  <TableCell>{formatDate(b.dateOfBurial)}</TableCell>
-                  <TableCell>{typeLabel(b.burialType)}</TableCell>
-                  <TableCell>
-                    <Badge variant={statusVariant(b.status)}>{b.status}</Badge>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {b.registeredBy}
-                  </TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Deceased</TableHead>
+                  <TableHead>Cemetery</TableHead>
+                  <TableHead>Section</TableHead>
+                  <TableHead>Grave No.</TableHead>
+                  <TableHead>Date of Burial</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Registered By</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {filtered.map((b) => (
+                  <TableRow key={b.id}>
+                    <TableCell className="font-medium">
+                      {b.deceasedName}
+                    </TableCell>
+                    <TableCell>{b.cemeteryName}</TableCell>
+                    <TableCell>{b.section}</TableCell>
+                    <TableCell className="font-mono text-sm">
+                      {b.graveNumber}
+                    </TableCell>
+                    <TableCell>{formatDate(b.dateOfBurial)}</TableCell>
+                    <TableCell>{typeLabel(b.burialType)}</TableCell>
+                    <TableCell>
+                      <Badge variant={statusVariant(b.status)}>
+                        {b.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {b.registeredBy}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>

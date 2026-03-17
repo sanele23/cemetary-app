@@ -12,6 +12,7 @@ import {
   MapPin,
   LogOut,
   ChevronLeft,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -26,20 +27,37 @@ const sidebarLinks = [
   { href: "/admin/reports", label: "Reports", icon: BarChart3 },
 ];
 
-export default function AdminSidebar() {
+interface AdminSidebarProps {
+  onClose?: () => void;
+}
+
+export default function AdminSidebar({ onClose }: AdminSidebarProps) {
   const pathname = usePathname();
 
   return (
     <aside className="flex h-screen w-64 flex-col border-r bg-sidebar text-sidebar-foreground">
       {/* Brand */}
-      <div className="flex h-16 items-center gap-2 px-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-          <MapPin className="h-4 w-4 text-white" />
+      <div className="flex h-16 items-center justify-between px-4">
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
+            <MapPin className="h-4 w-4 text-white" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-bold text-white">
+              Cebisa Memorial
+            </span>
+            <span className="text-[10px] text-slate-400">Admin Portal</span>
+          </div>
         </div>
-        <div className="flex flex-col">
-          <span className="text-sm font-bold text-white">Cebisa Memorial</span>
-          <span className="text-[10px] text-slate-400">Admin Portal</span>
-        </div>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="rounded-lg p-1.5 text-slate-400 hover:bg-white/10 hover:text-white lg:hidden"
+          >
+            <X className="h-5 w-5" />
+            <span className="sr-only">Close menu</span>
+          </button>
+        )}
       </div>
 
       <Separator className="bg-white/10" />
@@ -67,6 +85,7 @@ export default function AdminSidebar() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={onClose}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                 isActive
@@ -87,6 +106,7 @@ export default function AdminSidebar() {
       <div className="space-y-1 px-3 py-4">
         <Link
           href="/"
+          onClick={onClose}
           className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-400 transition-colors hover:bg-sidebar-accent/50 hover:text-white"
         >
           <ChevronLeft className="h-4 w-4" />

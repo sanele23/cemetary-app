@@ -28,7 +28,7 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/cebisa-logo.png"
+            src="/cemetary-app/cebisa-logo.png"
             alt="Cebisa Memorial Logo"
             width={60}
             height={60}

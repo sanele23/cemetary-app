@@ -40,13 +40,13 @@ export default function AdminSidebar({ onClose }: AdminSidebarProps) {
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-            <MapPin className="h-4 w-4 text-white" />
+            <MapPin className="h-4 w-4 text-slate-600" />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-white">
+            <span className="text-sm font-bold text-slate-800">
               Cebisa Memorial
             </span>
-            <span className="text-[10px] text-slate-400">Admin Portal</span>
+            <span className="text-[10px] text-slate-600">Admin Portal</span>
           </div>
         </div>
         {onClose && (
@@ -64,12 +64,14 @@ export default function AdminSidebar({ onClose }: AdminSidebarProps) {
 
       {/* User */}
       <div className="flex items-center gap-3 px-4 py-4">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-sm font-medium text-white">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-sm font-medium text-slate-600">
           TM
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-medium text-white">Samkelwa Qaka</span>
-          <span className="text-xs text-slate-400">Super Admin</span>
+          <span className="text-sm font-medium text-slate-700">
+            Samkelwa Qaka
+          </span>
+          <span className="text-xs text-slate-600">Super Admin</span>
         </div>
       </div>
 

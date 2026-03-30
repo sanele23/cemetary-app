@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 import { Menu, X, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -26,14 +27,19 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <MapPin className="h-5 w-5 text-white" />
-          </div>
+          <Image
+            src="/cebisa-logo.jpeg"
+            alt="Cebisa Memorial Logo"
+            width={60}
+            height={60}
+            className="h-15 w-15 object-contain rounded-lg p-1"
+            priority
+          />
           <div className="flex flex-col">
             <span className="text-base font-bold leading-tight text-foreground">
               Cebisa Memorial
             </span>
-            <span className="text-[10px] leading-tight text-muted-foreground">
+            <span className="text-[12px] font-semibold leading-tight text-muted-foreground">
               Cemetery Management
             </span>
           </div>

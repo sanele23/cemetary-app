@@ -10,18 +10,18 @@ const config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#7DB6E8", // Main blue from logo
-          light: "#B3D6F5", // Lighter blue
-          dark: "#3A7CB8", // Darker blue
+          DEFAULT: "#3CB3B3", // Teal from new logo
+          light: "#b2e3e3", // Lighter teal
+          dark: "#1a7a7a", // Darker teal
         },
         accent: {
-          DEFAULT: "#E3F1FB", // Very light blue/sky
+          DEFAULT: "#e6f7f7", // Very light teal/sky
         },
         background: {
-          DEFAULT: "#F8FAFC", // Very light gray/white
+          DEFAULT: "#ffffff", // White background
         },
         foreground: {
-          DEFAULT: "#1A2233", // Dark navy for text
+          DEFAULT: "#22292f", // Dark gray for text
         },
       },
       fontFamily: {

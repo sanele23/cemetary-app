@@ -46,7 +46,7 @@ export default function AdminCemeteriesPage() {
         </Button>
       </div>
 
-      <Card>
+      <Card className="min-w-0">
         <CardHeader>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <CardTitle>All Cemeteries ({filtered.length})</CardTitle>
@@ -61,9 +61,61 @@ export default function AdminCemeteriesPage() {
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <Table>
+        <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
+          <div className="space-y-3 sm:hidden">
+            {filtered.map((cem) => (
+              <article
+                key={cem.id}
+                className="rounded-lg border border-border/80 bg-background p-3"
+              >
+                <div className="mb-2 flex items-start justify-between gap-2">
+                  <p className="text-sm font-semibold leading-tight">{cem.name}</p>
+                  <Badge variant="success">{cem.availablePlots.toLocaleString()}</Badge>
+                </div>
+
+                <dl className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
+                  <div>
+                    <dt className="text-muted-foreground">City</dt>
+                    <dd className="font-medium">{cem.city}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Province</dt>
+                    <dd className="font-medium">{cem.province}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Total Graves</dt>
+                    <dd className="font-medium">{cem.totalGraves.toLocaleString()}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Established</dt>
+                    <dd className="font-medium">{cem.established}</dd>
+                  </div>
+                  <div className="col-span-2">
+                    <dt className="text-muted-foreground">Available Plots</dt>
+                    <dd className="font-medium text-emerald-600">
+                      {cem.availablePlots.toLocaleString()}
+                    </dd>
+                  </div>
+                </dl>
+
+                <div className="mt-2 flex justify-end gap-1">
+                  <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <Pencil className="h-3.5 w-3.5" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-destructive hover:text-destructive"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="hidden sm:block">
+            <Table className="min-w-200">
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
@@ -87,7 +139,7 @@ export default function AdminCemeteriesPage() {
                         {cem.availablePlots.toLocaleString()}
                       </Badge>
                     </TableCell>
-                    <TableCell>{cem.established}</TableCell>
+                    <TableCell className="whitespace-nowrap">{cem.established}</TableCell>
                     <TableCell>
                       <div className="flex gap-1">
                         <Button variant="ghost" size="icon" className="h-8 w-8">

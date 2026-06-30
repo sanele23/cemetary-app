@@ -83,7 +83,7 @@ export default function AdminUsersPage() {
         </Button>
       </div>
 
-      <Card>
+      <Card className="min-w-0">
         <CardHeader>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <CardTitle>All Users ({filtered.length})</CardTitle>
@@ -98,9 +98,55 @@ export default function AdminUsersPage() {
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <Table>
+        <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
+          <div className="space-y-3 sm:hidden">
+            {filtered.map((user) => (
+              <article
+                key={user.id}
+                className="rounded-lg border border-border/80 bg-background p-3"
+              >
+                <div className="mb-2 flex items-start justify-between gap-2">
+                  <p className="text-sm font-semibold leading-tight">{user.name}</p>
+                  <Badge variant={user.status === "active" ? "success" : "secondary"}>
+                    {user.status}
+                  </Badge>
+                </div>
+
+                <dl className="space-y-1 text-xs">
+                  <div>
+                    <dt className="text-muted-foreground">Email</dt>
+                    <dd className="break-all font-medium">{user.email}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Role</dt>
+                    <dd className="flex items-center gap-1.5 font-medium">
+                      {roleIcon(user.role)}
+                      {roleLabel(user.role)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Municipality</dt>
+                    <dd className="font-medium">{user.municipality}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Last Login</dt>
+                    <dd className="font-medium">
+                      {new Date(user.lastLogin).toLocaleDateString("en-ZA")}
+                    </dd>
+                  </div>
+                </dl>
+
+                <div className="mt-2 flex justify-end">
+                  <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <Pencil className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="hidden sm:block">
+            <Table className="min-w-200">
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
@@ -115,10 +161,8 @@ export default function AdminUsersPage() {
               <TableBody>
                 {filtered.map((user) => (
                   <TableRow key={user.id}>
-                    <TableCell className="font-medium">{user.name}</TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {user.email}
-                    </TableCell>
+                    <TableCell className="font-medium whitespace-nowrap">{user.name}</TableCell>
+                    <TableCell className="text-muted-foreground">{user.email}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-1.5">
                         {roleIcon(user.role)}
@@ -135,7 +179,7 @@ export default function AdminUsersPage() {
                         {user.status}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
+                    <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
                       {new Date(user.lastLogin).toLocaleDateString("en-ZA")}
                     </TableCell>
                     <TableCell>

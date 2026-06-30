@@ -73,7 +73,7 @@ export default function AdminBurialsPage() {
         </Button>
       </div>
 
-      <Card>
+      <Card className="min-w-0">
         <CardHeader>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <CardTitle>All Burial Records ({filtered.length})</CardTitle>
@@ -88,9 +88,50 @@ export default function AdminBurialsPage() {
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <Table>
+        <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
+          <div className="space-y-3 sm:hidden">
+            {filtered.map((b) => (
+              <article
+                key={b.id}
+                className="rounded-lg border border-border/80 bg-background p-3"
+              >
+                <div className="mb-2 flex items-start justify-between gap-2">
+                  <p className="text-sm font-semibold leading-tight">{b.deceasedName}</p>
+                  <Badge variant={statusVariant(b.status)}>{b.status}</Badge>
+                </div>
+
+                <dl className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
+                  <div>
+                    <dt className="text-muted-foreground">Cemetery</dt>
+                    <dd className="font-medium">{b.cemeteryName}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Section</dt>
+                    <dd className="font-medium">{b.section}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Grave No.</dt>
+                    <dd className="font-mono">{b.graveNumber}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Type</dt>
+                    <dd className="font-medium">{typeLabel(b.burialType)}</dd>
+                  </div>
+                  <div className="col-span-2">
+                    <dt className="text-muted-foreground">Date of Burial</dt>
+                    <dd className="font-medium">{formatDate(b.dateOfBurial)}</dd>
+                  </div>
+                  <div className="col-span-2">
+                    <dt className="text-muted-foreground">Registered By</dt>
+                    <dd className="font-medium">{b.registeredBy}</dd>
+                  </div>
+                </dl>
+              </article>
+            ))}
+          </div>
+
+          <div className="hidden sm:block">
+            <Table className="min-w-200">
               <TableHeader>
                 <TableRow>
                   <TableHead>Deceased</TableHead>
@@ -106,22 +147,24 @@ export default function AdminBurialsPage() {
               <TableBody>
                 {filtered.map((b) => (
                   <TableRow key={b.id}>
-                    <TableCell className="font-medium">
+                    <TableCell className="font-medium whitespace-nowrap">
                       {b.deceasedName}
                     </TableCell>
                     <TableCell>{b.cemeteryName}</TableCell>
                     <TableCell>{b.section}</TableCell>
-                    <TableCell className="font-mono text-sm">
+                    <TableCell className="font-mono text-sm whitespace-nowrap">
                       {b.graveNumber}
                     </TableCell>
-                    <TableCell>{formatDate(b.dateOfBurial)}</TableCell>
+                    <TableCell className="whitespace-nowrap">
+                      {formatDate(b.dateOfBurial)}
+                    </TableCell>
                     <TableCell>{typeLabel(b.burialType)}</TableCell>
                     <TableCell>
                       <Badge variant={statusVariant(b.status)}>
                         {b.status}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-muted-foreground">
+                    <TableCell className="text-muted-foreground whitespace-nowrap">
                       {b.registeredBy}
                     </TableCell>
                   </TableRow>

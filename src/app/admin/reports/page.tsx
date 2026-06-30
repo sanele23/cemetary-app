@@ -162,16 +162,60 @@ export default function AdminReportsPage() {
       </div>
 
       {/* Cemetery Capacity Table */}
-      <Card>
+      <Card className="min-w-0">
         <CardHeader>
           <CardTitle>Cemetery Capacity Report</CardTitle>
           <CardDescription>
             Overview of cemetery utilisation and available plots
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <Table>
+        <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
+          <div className="space-y-3 sm:hidden">
+            {cemeteries.map((cem) => {
+              const utilisation =
+                ((cem.totalGraves - cem.availablePlots) / cem.totalGraves) * 100;
+
+              return (
+                <article
+                  key={cem.id}
+                  className="rounded-lg border border-border/80 bg-background p-3"
+                >
+                  <p className="text-sm font-semibold leading-tight">{cem.name}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{cem.city}</p>
+
+                  <dl className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
+                    <div>
+                      <dt className="text-muted-foreground">Total Graves</dt>
+                      <dd className="font-medium">
+                        {cem.totalGraves.toLocaleString()}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-muted-foreground">Available Plots</dt>
+                      <dd className="font-medium text-emerald-600">
+                        {cem.availablePlots.toLocaleString()}
+                      </dd>
+                    </div>
+                    <div className="col-span-2">
+                      <dt className="text-muted-foreground">Utilisation</dt>
+                      <dd className="font-medium">{utilisation.toFixed(1)}%</dd>
+                    </div>
+                    <div className="col-span-2 mt-1">
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-secondary">
+                        <div
+                          className="h-full rounded-full bg-primary transition-all"
+                          style={{ width: `${utilisation}%` }}
+                        />
+                      </div>
+                    </div>
+                  </dl>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="hidden sm:block">
+            <Table className="min-w-200">
               <TableHeader>
                 <TableRow>
                   <TableHead>Cemetery</TableHead>
@@ -195,7 +239,9 @@ export default function AdminReportsPage() {
                       <TableCell className="font-medium text-emerald-600">
                         {cem.availablePlots.toLocaleString()}
                       </TableCell>
-                      <TableCell>{utilisation.toFixed(1)}%</TableCell>
+                      <TableCell className="whitespace-nowrap">
+                        {utilisation.toFixed(1)}%
+                      </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <div className="h-2 w-full max-w-32 overflow-hidden rounded-full bg-secondary">

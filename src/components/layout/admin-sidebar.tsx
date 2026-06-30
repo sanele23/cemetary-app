@@ -62,18 +62,7 @@ export default function AdminSidebar({ onClose }: AdminSidebarProps) {
 
       <Separator className="bg-white/10" />
 
-      {/* User */}
-      <div className="flex items-center gap-3 px-4 py-4">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-sm font-medium text-slate-600">
-          TM
-        </div>
-        <div className="flex flex-col">
-          <span className="text-sm font-medium text-slate-700">
-            Samkelwa Qaka
-          </span>
-          <span className="text-xs text-slate-600">Super Admin</span>
-        </div>
-      </div>
+      
 
       <Separator className="bg-white/10" />
 

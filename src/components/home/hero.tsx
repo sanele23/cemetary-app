@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, MapPin } from "lucide-react";
+import Link from "next/link";
+import { Search, MapPin, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -17,82 +18,82 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary via-[#1e3a5f] to-[#0f2847] py-24 text-white lg:py-32">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          {/* Badge */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm backdrop-blur">
-            <MapPin className="h-4 w-4" />
-            Cebisa Memorial — Cemetery Management
-          </div>
-
-          <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Find the Final Resting Place of Your Loved Ones
+    <section className="bg-white pb-24 pt-10 lg:pt-14">
+      <div className="mx-auto max-w-6xl px-6 lg:px-10">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-5xl font-light tracking-tight text-[#1f2531] sm:text-6xl md:text-7xl">
+            Discover the Ancestral Past
           </h1>
 
-          <p className="mb-10 text-lg text-white/80 sm:text-xl">
-            Search our comprehensive database of cemetery records across South
-            Africa. Locate graves, get directions, and preserve the memory of
-            those who came before us.
+          <p className="mx-auto mt-8 max-w-3xl text-xl leading-relaxed text-[#4a5667]">
+            Access over a century of curated genealogical records and plot data
+            within our digital sanctuary. Navigate the legacy with quiet
+            reverence.
           </p>
 
-          {/* Search bar */}
-          <div className="mx-auto max-w-2xl">
-            <form
-              className="flex flex-col gap-3 sm:flex-row"
-              onSubmit={handleSearch}
-            >
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+          <div className="mx-auto mt-14 max-w-5xl">
+            <form onSubmit={handleSearch}>
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-8 top-1/2 h-6 w-6 -translate-y-1/2 text-[#a7b0bb]" />
                 <Input
                   name="q"
-                  placeholder="Search by name, e.g. Thabo Molefe or Van De Kerk"
-                  className="h-12 bg-white pl-10 text-foreground"
+                  placeholder="Search records by name, plot number, or section..."
+                  className="h-20 rounded-2xl border-0 bg-[#f3f5f4] pl-20 pr-8 text-xl text-[#243040] placeholder:text-[#a4aebb] focus-visible:ring-2 focus-visible:ring-[#dce2df]"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
               </div>
-              <Button
-                type="submit"
-                size="lg"
-                className="h-12 bg-white text-primary hover:bg-white/90"
-              >
-                <Search className="mr-2 h-4 w-4" />
-                Search
-              </Button>
             </form>
-            <p className="mt-3 text-sm text-white/60">
-              Search by first name, surname, or both across all registered
-              cemeteries
-            </p>
           </div>
 
-          {/* Stats */}
-          <div className="mt-16 grid grid-cols-3 gap-8 border-t border-white/10 pt-8">
+          <div className="mt-20 grid gap-12 sm:grid-cols-3">
             <div>
-              <div className="text-3xl font-bold">11</div>
-              <div className="text-sm text-white/60">Cemeteries</div>
+              <p className="text-5xl font-light tracking-tight text-[#1f2531] sm:text-6xl">
+                142,804
+              </p>
+              <p className="mt-3 text-xs font-semibold tracking-[0.28em] text-[#a3adb8]">
+                TOTAL RECORDS
+              </p>
             </div>
             <div>
-              <div className="text-3xl font-bold">70,620+</div>
-              <div className="text-sm text-white/60">Graves Registered</div>
+              <p className="text-5xl font-light tracking-tight text-[#1f2531] sm:text-6xl">
+                85,210
+              </p>
+              <p className="mt-3 text-xs font-semibold tracking-[0.28em] text-[#a3adb8]">
+                HISTORICAL PLOTS
+              </p>
             </div>
             <div>
-              <div className="text-3xl font-bold">7</div>
-              <div className="text-sm text-white/60">Municipalities</div>
+              <p className="text-5xl font-light tracking-tight text-[#1f2531] sm:text-6xl">
+                1,102
+              </p>
+              <p className="mt-3 text-xs font-semibold tracking-[0.28em] text-[#a3adb8]">
+                RECENT INTERNMENTS
+              </p>
             </div>
+          </div>
+
+          <div className="mt-16 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Button
+              asChild
+              className="h-14 rounded-full bg-[#758A81] px-10 text-xs font-semibold tracking-[0.2em] text-white hover:bg-[#6c8078]"
+            >
+              <Link href="/cemeteries">
+                <MapPin className="h-4 w-4" />
+                INTERACTIVE MAP VIEW
+              </Link>
+            </Button>
+
+            <Button
+              asChild
+              variant="outline"
+              className="h-14 rounded-full border-[#d9dedb] bg-white px-10 text-xs font-semibold tracking-[0.2em] text-[#1f2531] hover:bg-[#f8faf9] hover:text-[#1f2531]"
+            >
+              <Link href="/search">
+                <Info className="h-4 w-4" />
+                REQUEST INFORMATION
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

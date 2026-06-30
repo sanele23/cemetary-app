@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cebisa Memorial — Municipal Cemetery Management System",
+  title: "Cebisa Memorial — Genealogical & Cemetery Records",
   description:
-    "Find the final resting place of your loved ones. Search cemetery records across South Africa.",
+    "A serene digital sanctuary for discovering genealogical legacies, burial records, and historical plot archives.",
 };
 
 export default function RootLayout({
